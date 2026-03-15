@@ -250,6 +250,10 @@ static char *wrap_in_layout(const Theme *theme, const Config *cfg,
         tmpl_ctx_set(ctx, "twitter_description", desc);
     }
 
+    /* Simple Analytics */
+    if (cfg->enable_simple_analytics)
+        tmpl_ctx_set(ctx, "enable_simple_analytics", "1");
+
     char *result = tmpl_render(layout_tpl, ctx);
     tmpl_ctx_free(ctx);
     free(layout_tpl);

@@ -52,6 +52,7 @@ typedef struct {
     char output_dir[MAX_PATH_LEN];
     bool enable_rss;
     bool enable_seo;
+    bool enable_simple_analytics;
     char site_description[MAX_LINE_LEN];
 } Config;
 

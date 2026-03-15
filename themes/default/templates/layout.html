@@ -37,5 +37,8 @@
         <p>&copy; {{ year }} {{ author }}. Powered by <a href="https://github.com/termplay/cblog">cblog</a>.</p>
     </footer>
     <script src="{{ base_url }}/assets/js/main.js"></script>
+    {% if enable_simple_analytics %}
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    {% endif %}
 </body>
 </html>

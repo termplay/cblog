@@ -7,5 +7,6 @@
     "output_dir": "public",
     "enable_rss": true,
     "enable_seo": true,
+    "enable_simple_analytics": false,
     "site_description": "Blog description here"
 }

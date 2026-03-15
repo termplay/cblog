@@ -139,6 +139,7 @@ By default, pages use the `post.html` theme template. If you want a different la
     "output_dir": "public",
     "enable_rss": true,
     "enable_seo": false,
+    "enable_simple_analytics": false,
     "site_description": ""
 }
 ```
@@ -153,6 +154,7 @@ By default, pages use the `post.html` theme template. If you want a different la
 | `output_dir` | Build output directory |
 | `enable_rss` | Generate `rss.xml` feed |
 | `enable_seo` | Inject meta description, Open Graph, and Twitter Card tags into every page |
+| `enable_simple_analytics` | Inject the [Simple Analytics](https://www.simpleanalytics.com/) script into every page |
 | `site_description` | Default meta description used when a page-specific one is not available |
 
 ## SEO (Search Engine Optimization)
@@ -215,6 +217,48 @@ If you create a custom theme, add the SEO block to your `layout.html` `<head>`:
 ```
 
 These variables are only set when `enable_seo` is `true` in config — otherwise the block is skipped cleanly.
+
+## Simple Analytics
+
+[Simple Analytics](https://www.simpleanalytics.com/) is a privacy-friendly, cookieless analytics service. When enabled, cblog injects their tracking script just before the closing `</body>` tag on every generated page.
+
+### 1. Create a Simple Analytics account
+
+Sign up at [simpleanalytics.com](https://www.simpleanalytics.com/) and add your site's domain. No additional configuration is required on their end — the script loads automatically once the domain is registered.
+
+### 2. Enable in config.json
+
+```json
+{
+    "enable_simple_analytics": true
+}
+```
+
+Then rebuild:
+
+```bash
+cblog build
+```
+
+### What gets injected
+
+When `enable_simple_analytics` is `true`, the following script tag is added just before `</body>` on every page:
+
+```html
+<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+```
+
+Setting `enable_simple_analytics` to `false` (the default) omits the script entirely — no requests are made to Simple Analytics and no tracking occurs.
+
+### Custom theme support
+
+If you create a custom theme, add the following block to your `layout.html` just before `</body>`:
+
+```html
+{% if enable_simple_analytics %}
+<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+{% endif %}
+```
 
 ## Themes
 

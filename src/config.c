@@ -51,6 +51,9 @@ bool config_load(Config *cfg, const char *project_dir) {
     JsonValue *seo = json_object_get(root, "enable_seo");
     cfg->enable_seo = seo ? json_bool_value(seo) : false;
 
+    JsonValue *sa = json_object_get(root, "enable_simple_analytics");
+    cfg->enable_simple_analytics = sa ? json_bool_value(sa) : false;
+
     safe_copy(cfg->site_description, sizeof(cfg->site_description),
               json_string_value(json_object_get(root, "site_description")));
 
@@ -74,9 +77,10 @@ bool config_save(const Config *cfg, const char *project_dir) {
     json_object_set(root, "theme",           json_new_string(cfg->theme));
     json_object_set(root, "pagination_size", json_new_number(cfg->pagination_size));
     json_object_set(root, "output_dir",      json_new_string(cfg->output_dir));
-    json_object_set(root, "enable_rss",      json_new_bool(cfg->enable_rss));
-    json_object_set(root, "enable_seo",      json_new_bool(cfg->enable_seo));
-    json_object_set(root, "site_description", json_new_string(cfg->site_description));
+    json_object_set(root, "enable_rss",              json_new_bool(cfg->enable_rss));
+    json_object_set(root, "enable_seo",              json_new_bool(cfg->enable_seo));
+    json_object_set(root, "enable_simple_analytics", json_new_bool(cfg->enable_simple_analytics));
+    json_object_set(root, "site_description",        json_new_string(cfg->site_description));
 
     char *json_str = json_serialize(root);
     json_free(root);
@@ -100,6 +104,7 @@ bool config_write_default(const char *project_dir, const char *site_title) {
     snprintf(cfg.output_dir, sizeof(cfg.output_dir), "public");
     cfg.enable_rss = true;
     cfg.enable_seo = false;
+    cfg.enable_simple_analytics = false;
     cfg.site_description[0] = '\0';
     return config_save(&cfg, project_dir);
 }
