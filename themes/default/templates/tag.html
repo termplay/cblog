@@ -1,0 +1,9 @@
+<h1>Tag: {{ tag_name }}</h1>
+<section class="tag-list">
+{% for post in posts %}
+    <div class="tag-entry">
+        <time datetime="{{ post.date }}">{{ post.date }}</time>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+    </div>
+{% endfor %}
+</section>
